@@ -29,7 +29,7 @@ e implementar algún algoritmo de reemplazo.
 
 El programa se ejecutará de la siguiente forma:
 
-<paged-sort -i <archivo> -a -  o <archivo_resultado>>
+paged-sort -i <archivo> -a -  o <archivo_resultado>
 
 Cuando el programa se ejecute, copia el contenido de archivoa archivo_resultadoy aplica el algoritmo de 
 ordenamiento (QS   para Quicksort, IS   para insertion sort o SS   para selection sort) sobre el archivo de resultado.
