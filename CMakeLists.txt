@@ -3,4 +3,4 @@ project(Homework_1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Homework_1 src/main.cpp src/insertionSort.cpp src/pageArray.cpp)
+add_executable(Homework_1 src/fileSort.cpp)
