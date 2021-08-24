@@ -1,3 +1,11 @@
+/**
+ * @file fileSort.cpp
+ * @version 1.5
+ * @date 24/8/2021
+ * @author Carlos A. Mata C. <carlos.andres12001 @ gmail.com>
+ * @title AED2-Homework-1
+ */
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -5,6 +13,13 @@
 #include "cstdio"
 using namespace std;
 
+
+/**
+ * @author GeeksForGeeks <https://www.geeksforgeeks.org/insertion-sort/>
+ * @version     1.5
+ * @since       0.2
+ * @brief This method implements insertion sort.
+ */
 void insertionSort(int arr[], int n)
 {
     int i, key, j;
@@ -22,17 +37,13 @@ void insertionSort(int arr[], int n)
     }
 }
 
-void printArray(int arr[], int n)
-{
-    int i;
-    for (i = 0; i < n; i++){
-        cout << arr[i] << " ";
-        if (i!=0&& i%10==0) {cout << endl;}
-    }
-    cout << endl;
-}
 
-
+/**
+ * @author Carlos A. Mata C. <carlos.andres12001 @ gmail.com>
+ * @version     1.5
+ * @since       0.5
+ * @brief This class store the basic info for the class.
+ */
 class Page
 {
 public:
@@ -51,24 +62,56 @@ public:
     };
 };
 
-
+/**
+ * @author Carlos A. Mata C. <carlos.andres12001 @ gmail.com>
+ * @version     1.5
+ * @since       0.3
+ * @brief This class is the Array of pages.
+ */
 class PageArray
 {
 public:
+    /**
+     * Num of pages.
+     */
     int n;
+    /**
+     * Count of numbers the pages can store.
+    */
     const int size_page = 256;
+    /**
+     * Matrix of the page loads in memory.
+     */
     int **ram = new int*[6];
+    /**
+     * Say is the ram is full.
+     */
     bool full_ram;
+    /**
+     * Is the register of the page in ram.
+     */
     Page mmu [12];
+    /**
+     * THe path of the file.
+     */
     string path;
-
-    PageArray() = default;
+    /**
+     * @brief The construct of the class.
+     * @since 0.3
+     * @param path The path of the file.
+     */
     PageArray(string path)
     {
         this->path = move(path);
     }
 
 private:
+    /**
+    * @brief Read the data of the file and return the pointer of the data.
+    * @since 0.6
+    * @param multiple_page The numtiple of the page.
+     * @return Data read of the page.
+    */
     int * readInfoPage(int multiple_page)
     {
         fstream my_file;
@@ -114,117 +157,94 @@ private:
         my_file.close();
         return page;
     }
-};
-
-
-void filter_blank_spaces(ifstream& in_stream, ofstream& out_stream)
-{
-    char next;
-    in_stream.get(next);
-
-    do
+    /**
+    * @brief Write the data of the file.
+    * @since 0.6
+    * @param multiple_page The numtiple of the page.
+     * @param page The page to add in the file.
+    */
+    void writeInfoPage(int multipler_page, int *page)
     {
-        if (isspace(next))
-            out_stream << ' ';
-        else
-            out_stream << next;
-        in_stream.get(next);
-    }
-    while (! in_stream.get(next));
-}
-
-// Delete n-th line from given file
-void writeInfoPage()
-{
-    int size_page = 5;
-    const char *path = "sample.txt";
-
-    int multipler_page = 4;
-    int *page;
-    int array []= {1,2,3,4,5};
-    page = array;
 
 
+        // open file in read mode or in mode
+        fstream reader_writer;
+        fstream append;
 
-    // open file in read mode or in mode
-    fstream reader_writer;
-    fstream append;
+        reader_writer.open(this->path, ios::in | ios::out);
+        append.open(this->path, ios::app);
+        append << "#" << endl;
 
-    reader_writer.open(path, ios::in | ios::out);
-    append.open(path, ios::app);
-    append << "#" << endl;
-
-    // loop getting single characters
-    int space_counter = 1, number_counter = 0;
-    string info = "";
-    char index;
-    while(!reader_writer.eof())
-    {
-        reader_writer >> index;
-        reader_writer.seekp(space_counter-1);
-        reader_writer << "";
-        space_counter ++;
-//        cout << "Index value: " << index << " Info value: " << info << " Space: "<< space_counter << endl;
-
-        if (index=='#')
+        // loop getting single characters
+        int space_counter = 1, number_counter = 0;
+        string info = "";
+        char index;
+        while(!reader_writer.eof())
         {
-            reader_writer.seekp(space_counter-2);
-            reader_writer << " ";
-            break;
-        }
-        else{
-            if (index == '1' || index =='2' || index =='3' ||
-            index == '4' || index =='5' || index =='6' ||
-            index == '7' || index =='8' || index =='9' ||
-            index == '0' )//|| (index =='-' && info==""))
-                {
-                info += index;
-                }
-            else if (index==',' && info!="")
+            reader_writer >> index;
+            reader_writer.seekp(space_counter-1);
+            reader_writer << "";
+            space_counter ++;
+            //        cout << "Index value: " << index << " Info value: " << info << " Space: "<< space_counter << endl;
+
+            if (index=='#')
             {
-                number_counter++;
-                if(size_page*multipler_page-size_page <= number_counter && number_counter <= multipler_page*size_page)
-                {
-                    append << *(page+(number_counter-1) % size_page) << ",";
-//                    cout << page+(number_counter-1) % size_page;
-                }
-                else{
-                    append << info << ",";
-//                    cout << info;
-                }
-//                cout << endl << "-------------------------" << endl;
-                info = "";
+                reader_writer.seekp(space_counter-2);
+                reader_writer << " ";
+                break;
             }
             else{
-                NULL;
+                if (index == '1' || index =='2' || index =='3' ||
+                index == '4' || index =='5' || index =='6' ||
+                index == '7' || index =='8' || index =='9' ||
+                index == '0' )//|| (index =='-' && info==""))
+                    {
+                    info += index;
+                    }
+                else if (index==',' && info!="")
+                {
+                    number_counter++;
+                    if(this->size_page*multipler_page-this->size_page <= number_counter && number_counter <= multipler_page*this->size_page)
+                    {
+                        append << *(page+(number_counter-1) % this->size_page) << ",";
+                        //                    cout << page+(number_counter-1) % size_page;
+                    }
+                    else{
+                        append << info << ",";
+                        //                    cout << info;
+                    }
+                    //                cout << endl << "-------------------------" << endl;
+                    info = "";
+                }
+                else{
+                    NULL;
+                }
             }
         }
+        if(info!=""){
+            append << info;
+        }
+        append.close();
+        reader_writer.close();
+
+
+        string a_string;
+        string dummy;
+        char delim;
+        ifstream a_file (this->path);
+        while (a_file >> dummy)
+        {
+            delim = a_file.get ();
+            dummy += delim;
+            a_string += dummy;
+        }
+
+        cout << a_string;
+
+        return;
     }
-    if(info!=""){
-        append << info;
-    }
-    append.close();
-    reader_writer.close();
-
-
-    string a_string;
-    string dummy;
-    char delim;
-    ifstream a_file (path);
-    while (a_file >> dummy)
-    {
-        delim = a_file.get ();
-        dummy += delim;
-        a_string += dummy;
-    }
-
-    cout << a_string;
-
-    return;
-}
-
+};
 
 int main()
 {
-    writeInfoPage();
 }
