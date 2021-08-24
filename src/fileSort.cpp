@@ -115,7 +115,77 @@ private:
     }
 };
 
+// Delete n-th line from given file
+void writeInfoPage()
+{
+    int size_page = 5;
+    string path = "sample.txt";
+
+    int multipler_page = 4;
+    int *page;
+    int array []= {116, 116, 116, 116};
+    page = array;
+
+
+
+    // open file in read mode or in mode
+    fstream reader_writer;
+    fstream append;
+
+    reader_writer.open(path, ios::in | ios::out);
+    append.open(path, ios::app);
+    append << "#" << endl;
+
+    // loop getting single characters
+    int space_counter = 1, number_counter = 0;
+    string info = "";
+    char index;
+    while(!reader_writer.eof())
+    {
+        reader_writer >> index;
+        reader_writer.seekp(space_counter-1);
+        reader_writer << " ";
+        space_counter ++;
+
+        if (index=='#')
+        {
+            reader_writer.seekp(space_counter-2);
+            reader_writer << " ";
+            break;
+        }
+        else{
+            if (index == '1' || index =='2' || index =='3' ||
+            index == '4' || index =='5' || index =='6' ||
+            index == '7' || index =='8' || index =='9' ||
+            index == '0' )//|| (index =='-' && info==""))
+                {
+                info += index;
+                }
+            else if (index==',' && info!="")
+            {
+                number_counter++;
+                if(size_page*multipler_page-size_page < number_counter && number_counter <= multipler_page*size_page)
+                {
+                    append << *(page+(number_counter-1) % size_page) << ",";
+                }
+                else{
+                    append << info << ",";
+                }
+                info = "";
+            }
+            else{
+                NULL;
+            }
+        }
+    }
+    reader_writer.close();
+    append.close();
+    //    reformartInfoPage();
+    return;
+}
+
 
 int main()
 {
+    writeInfoPage();
 }
