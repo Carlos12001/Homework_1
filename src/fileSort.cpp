@@ -116,15 +116,32 @@ private:
     }
 };
 
+
+void filter_blank_spaces(ifstream& in_stream, ofstream& out_stream)
+{
+    char next;
+    in_stream.get(next);
+
+    do
+    {
+        if (isspace(next))
+            out_stream << ' ';
+        else
+            out_stream << next;
+        in_stream.get(next);
+    }
+    while (! in_stream.get(next));
+}
+
 // Delete n-th line from given file
 void writeInfoPage()
 {
     int size_page = 5;
     const char *path = "sample.txt";
 
-    int multipler_page = 3;
+    int multipler_page = 4;
     int *page;
-    int array []= {0, 1, 2, 3, 4};
+    int array []= {1,2,3,4,5};
     page = array;
 
 
@@ -145,8 +162,9 @@ void writeInfoPage()
     {
         reader_writer >> index;
         reader_writer.seekp(space_counter-1);
-        reader_writer << " ";
+        reader_writer << "";
         space_counter ++;
+//        cout << "Index value: " << index << " Info value: " << info << " Space: "<< space_counter << endl;
 
         if (index=='#')
         {
@@ -168,10 +186,13 @@ void writeInfoPage()
                 if(size_page*multipler_page-size_page <= number_counter && number_counter <= multipler_page*size_page)
                 {
                     append << *(page+(number_counter-1) % size_page) << ",";
+//                    cout << page+(number_counter-1) % size_page;
                 }
                 else{
                     append << info << ",";
+//                    cout << info;
                 }
+//                cout << endl << "-------------------------" << endl;
                 info = "";
             }
             else{
@@ -184,22 +205,21 @@ void writeInfoPage()
     }
     append.close();
     reader_writer.close();
-    reader_writer.open(path, ios::in);
-    fstream tmp;
-    tmp.open("tmp.txt", ios::out);
-    while (reader_writer.eof())
+
+
+    string a_string;
+    string dummy;
+    char delim;
+    ifstream a_file (path);
+    while (a_file >> dummy)
     {
-        reader_writer >> index;
-        if (index == '1' || index =='2' || index =='3' ||
-        index == '4' || index =='5' || index =='6' ||
-        index == '7' || index =='8' || index =='9' ||
-        index == '0' || index==','){
-            tmp << index;
-        }
+        delim = a_file.get ();
+        dummy += delim;
+        a_string += dummy;
     }
-    tmp.close();
-    remove(path);
-    rename("tmp.txt", path);
+
+    cout << a_string;
+
     return;
 }
 
