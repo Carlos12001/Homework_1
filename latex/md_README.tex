@@ -1,0 +1,25 @@
+\hypertarget{md_README_autotoc_md1}{}\doxysection{Tarea Extraclase \#1}\label{md_README_autotoc_md1}
+Instituto Tecnológico de Costa Rica
+
+Área Académica Ingeniería en Computadores
+
+Algoritmos y Estructuras de Datos II (CE 2103)
+
+Segundo Semestre 2021\hypertarget{md_README_autotoc_md2}{}\doxysubsection{Objetivo General}\label{md_README_autotoc_md2}
+
+\begin{DoxyItemize}
+\item Aplicar el concepto de gestión de memoria desde la perspectiva de la codificación del software. 
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md3}{}\doxysubsection{Objetivos Específicos}\label{md_README_autotoc_md3}
+
+\begin{DoxyItemize}
+\item Utilizar punteros para la implementación de estructuras de datos lineales y jerárquicas.
+\item Investigar y desarrollar una aplicación en el lenguaje de programación C++.
+\item Investigar acerca de programación orientada a objetos en C++.
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md4}{}\doxysubsection{Descripción de la tarea}\label{md_README_autotoc_md4}
+Dado un archivo que contiene una gran cantidad de números enterosseparados por coma. Para ordenar el archivo el estudiante debe implementar alguno de los siguientes algoritmos de ordenamiento\+: quick sort, insertion sort ó selection sort. Se debe suponer que el computador en el que se ejecuta el programa tiene una memoria máxima de 12 KB por lo que el programa no podrá tener más de 6 páginas de 1 KB (256 enteros) en memoria y deberá ejecutar el algoritmo de ordenamiento bajo esta restricción. Para los algoritmos, la paginación debe ser transparente, es decir su código no debe ser modificado de tal forma que refleje lo que ocurre detrás de escena. El estudiante deberá implementar una clase Paged\+Arrayque sobrecargue el operador \mbox{[} \mbox{]}, de esta forma el algoritmo simplemente pedirá entradas del arreglo, y la clase Paged\+Arrayse encargará de buscar la página correspondiente, reemplazando alguna de las que ya estaban cargadas. El estudiante deberá investigar e implementar algún algoritmo de reemplazo.
+
+El programa se ejecutará de la siguiente forma\+:
+
+paged-\/sort -\/i $<$archivo$>$ -\/a -\/ o $<$archivo\+\_\+resultado$>$
+
+Cuando el programa se ejecute, copia el contenido de archivoa archivo\+\_\+resultadoy aplica el algoritmo de ordenamiento (QS para Quicksort, IS para insertion sort o SS para selection sort) sobre el archivo de resultado. No puede generar ningún archivo intermedio.\+El código fuente debe ser documentado utilizando Doxygen y debe manejarse en Git\+Hub brindando acceso al profesor mediante el siguiente correo\+: \href{mailto:ldnoguera@gmail.comAspectos}{\texttt{ ldnoguera@gmail.\+com\+Aspectos}} operativos y evaluación 
