@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "fstream"
 #include "cstdio"
 using namespace std;
@@ -119,11 +120,11 @@ private:
 void writeInfoPage()
 {
     int size_page = 5;
-    string path = "sample.txt";
+    const char *path = "sample.txt";
 
-    int multipler_page = 4;
+    int multipler_page = 3;
     int *page;
-    int array []= {116, 116, 116, 116};
+    int array []= {0, 1, 2, 3, 4};
     page = array;
 
 
@@ -164,7 +165,7 @@ void writeInfoPage()
             else if (index==',' && info!="")
             {
                 number_counter++;
-                if(size_page*multipler_page-size_page < number_counter && number_counter <= multipler_page*size_page)
+                if(size_page*multipler_page-size_page <= number_counter && number_counter <= multipler_page*size_page)
                 {
                     append << *(page+(number_counter-1) % size_page) << ",";
                 }
@@ -178,9 +179,27 @@ void writeInfoPage()
             }
         }
     }
-    reader_writer.close();
+    if(info!=""){
+        append << info;
+    }
     append.close();
-    //    reformartInfoPage();
+    reader_writer.close();
+    reader_writer.open(path, ios::in);
+    fstream tmp;
+    tmp.open("tmp.txt", ios::out);
+    while (reader_writer.eof())
+    {
+        reader_writer >> index;
+        if (index == '1' || index =='2' || index =='3' ||
+        index == '4' || index =='5' || index =='6' ||
+        index == '7' || index =='8' || index =='9' ||
+        index == '0' || index==','){
+            tmp << index;
+        }
+    }
+    tmp.close();
+    remove(path);
+    rename("tmp.txt", path);
     return;
 }
 
